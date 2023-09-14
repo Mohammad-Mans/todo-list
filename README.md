@@ -21,7 +21,7 @@ In this project I have created a TODO list web application with various features
 
 To View my TODO List, simply visit the following link:
 
-[View My Portfolio]()
+[View My TODO List](mohammad-mans.github.io/todo-list/)
 
 This link will take you to the live version of my TODO List. 
 
