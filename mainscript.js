@@ -60,7 +60,7 @@ function addTask(id,task,userId,status){
     let userIdCell = document.createElement('td');
     let editButton = document.createElement('td');
     let deleteButton = document.createElement('td');
-    let doneButton = document.createElement('td');
+    let ToggleStatusButton = document.createElement('td');
     let statusCell = document.createElement('td');
 
     idCell.textContent = id;
@@ -68,23 +68,33 @@ function addTask(id,task,userId,status){
     userIdCell.textContent = userId;
     editButton.textContent = 'Edit';
     deleteButton.textContent = 'Delete';
-    doneButton.textContent = 'Done';
-    statusCell.textContent = status;
+
+    if(status === true){
+      let completedIcon = document.createElement('i');
+      completedIcon.classList.add('fa-solid','fa-circle-check','fa-lg');
+      statusCell.appendChild(completedIcon);
+      ToggleStatusButton.textContent = 'Revert';
+    }else{
+      let hourGlassIcon = document.createElement('i');
+      hourGlassIcon.classList.add('fa-regular','fa-hourglass-half','fa-lg');
+      statusCell.appendChild(hourGlassIcon);
+      ToggleStatusButton.textContent = 'Done';
+    }
 
     editButton.classList.add('edit-button');
     deleteButton.classList.add('delete-button');
-    doneButton.classList.add('done-button');
+    ToggleStatusButton.classList.add('toggle-status-button');
 
     editButton.setAttribute('data-action', 'edit');
     deleteButton.setAttribute('data-action', 'delete');
-    doneButton.setAttribute('data-action', 'done');
+    ToggleStatusButton.setAttribute('data-action', 'toggle-status');
 
     row.appendChild(idCell);
     row.appendChild(taskCell);
     row.appendChild(userIdCell);
     row.appendChild(editButton);
     row.appendChild(deleteButton);
-    row.appendChild(doneButton);
+    row.appendChild(ToggleStatusButton);
     row.appendChild(statusCell);
 
     tableBody.appendChild(row);
@@ -100,11 +110,13 @@ tableBody.addEventListener('click', (event) => {
       alert('edit');
     } else if (action === 'delete') {
       deleteTask(event);
-    } else if (action === 'done') {
-      alert('done');
+    } else if (action === 'toggle-status') {
+      toggleStatus(event);
     }
   }
 });
+
+//----delete
 
 let confirmationDialog = document.getElementById('confirmation-dialog');
 let dialogOverlay = document.getElementById('dialog-overlay');
@@ -127,11 +139,9 @@ function hideConfirmationDialog(){
 function deleteTask(event){
   
   rowToDelete = event.target.closest('tr');
-
-  if(rowToDelete){
-    showConfirmationDialog();
-    deleteTaskID.textContent = rowToDelete.querySelector('td:first-child').textContent;
-  }
+  showConfirmationDialog();
+  deleteTaskID.textContent = rowToDelete.querySelector('td:first-child').textContent;
+  
 }
 
 confirmationDialog.addEventListener('click', (event)=> {
@@ -151,6 +161,26 @@ confirmationDialog.addEventListener('click', (event)=> {
     hideConfirmationDialog();
   }
 });
+
+//----Toggle
+
+function toggleStatus(event){
+  let row = event.target.closest('tr');
+  let currentButton = row.querySelector('td:nth-child(6)');
+  let currentStatus = row.querySelector('i');
+
+  if(currentButton.textContent === 'Done'){
+    currentButton.textContent = 'Revert';
+    currentStatus.classList.remove('fa-regular','fa-hourglass-half','fa-lg');
+    currentStatus.classList.add('fa-solid','fa-circle-check','fa-lg');
+  }else{
+    currentButton.textContent = 'Done';
+    currentStatus.classList.remove('fa-solid','fa-circle-check','fa-lg');
+    currentStatus.classList.add('fa-regular','fa-hourglass-half','fa-lg');
+  }
+}
+
+//----Search
 
 let searchBar = document.getElementById('search-bar');
 

@@ -13,7 +13,8 @@
     --main-beige-color: #fbe4d8;
     --secondery-beige-color: #dfb6b2;
     --white-color: #fff;
-    --red-color: #ff0000;
+    --red-color: #c11;
+    --green-color: #177245;
 }
 
 body{
@@ -118,15 +119,23 @@ body main table td{
     text-align: center;
 }
 
-body main table .edit-button,.delete-button,.done-button{
+body main table .edit-button,.delete-button,.toggle-status-button{
     color: var(--main-purple-color);
     cursor: pointer;
 
 }
 
-body main table .edit-button:hover,.delete-button:hover,.done-button:hover {
+body main table .edit-button:hover,.delete-button:hover,.toggle-status-button:hover {
     transition: 0.5s;
     background-color: var(--secondery-beige-color);
+}
+
+body main table .fa-circle-check{
+    color: var(--green-color);
+}
+
+body main table .fa-hourglass-half{
+    color: var(--red-color);
 }
 
 .confirmation-dialog {
@@ -150,6 +159,7 @@ body main table .edit-button:hover,.delete-button:hover,.done-button:hover {
     margin-right: 10px;
     cursor: pointer;
     background-color: var(--main-purple-color);
+    border: 1px solid var(--secondery-purple-color);
 }
 
 .confirmation-dialog button:hover {
