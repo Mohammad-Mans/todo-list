@@ -64,12 +64,16 @@ function addTask(id,task,userId,status){
     let statusCell = document.createElement('td');
 
     idCell.innerHTML = id;
-    taskCell.innerHTML = task;
+    taskCell.textContent = task;
     userIdCell.innerHTML = userId;
     editButton.innerHTML = 'Edit';
     deleteButton.innerHTML = 'Delete';
     doneButton.innerHTML = 'Done';
     statusCell.innerHTML = status;
+
+    editButton.classList.add('edit-button');
+    deleteButton.classList.add('delete-button');
+    doneButton.classList.add('done-button');
 
     row.appendChild(idCell);
     row.appendChild(taskCell);

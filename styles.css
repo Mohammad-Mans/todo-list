@@ -117,6 +117,17 @@ body main table td{
     text-align: center;
 }
 
+body main table .edit-button,.delete-button,.done-button{
+    color: var(--main-purple-color);
+    cursor: pointer;
+
+}
+
+body main table .edit-button:hover,.delete-button:hover,.done-button:hover {
+    transition: 0.5s;
+    background-color: var(--secondery-beige-color);
+}
+
 @media(max-width:650px){
     body main table th,td{
         font-size: 1.5vw;
