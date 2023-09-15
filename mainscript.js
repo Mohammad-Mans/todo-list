@@ -87,3 +87,24 @@ function addTask(id,task,userId,status){
 }
 
 
+let searchBar = document.getElementById('search-bar');
+
+searchBar.addEventListener('input', (event) => {
+  let searchTerm = event.target.value.toLowerCase();
+
+  const taskRows = tableBody.querySelectorAll('tr');
+
+  taskRows.forEach((row) => {
+    const taskDescription = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+
+    if (taskDescription.includes(searchTerm)) {
+      row.style.display = 'table-row';
+
+    } else {
+      row.style.display = 'none';
+
+    }
+    
+  });
+});
+

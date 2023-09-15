@@ -132,6 +132,11 @@ body main table .edit-button:hover,.delete-button:hover,.done-button:hover {
     body main table th,td{
         font-size: 1.5vw;
     }
+
+    body{
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 @keyframes transitionIn {
