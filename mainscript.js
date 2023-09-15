@@ -63,17 +63,21 @@ function addTask(id,task,userId,status){
     let doneButton = document.createElement('td');
     let statusCell = document.createElement('td');
 
-    idCell.innerHTML = id;
+    idCell.textContent = id;
     taskCell.textContent = task;
-    userIdCell.innerHTML = userId;
-    editButton.innerHTML = 'Edit';
-    deleteButton.innerHTML = 'Delete';
-    doneButton.innerHTML = 'Done';
-    statusCell.innerHTML = status;
+    userIdCell.textContent = userId;
+    editButton.textContent = 'Edit';
+    deleteButton.textContent = 'Delete';
+    doneButton.textContent = 'Done';
+    statusCell.textContent = status;
 
     editButton.classList.add('edit-button');
     deleteButton.classList.add('delete-button');
     doneButton.classList.add('done-button');
+
+    editButton.setAttribute('data-action', 'edit');
+    deleteButton.setAttribute('data-action', 'delete');
+    doneButton.setAttribute('data-action', 'done');
 
     row.appendChild(idCell);
     row.appendChild(taskCell);
@@ -86,6 +90,67 @@ function addTask(id,task,userId,status){
     tableBody.appendChild(row);
 }
 
+tableBody.addEventListener('click', (event) => {
+  let clickedButton = event.target;
+
+  if (clickedButton.tagName === 'TD' && clickedButton.getAttribute('data-action')) {
+    let action = clickedButton.dataset.action;
+
+    if (action === 'edit') {
+      alert('edit');
+    } else if (action === 'delete') {
+      deleteTask(event);
+    } else if (action === 'done') {
+      alert('done');
+    }
+  }
+});
+
+let confirmationDialog = document.getElementById('confirmation-dialog');
+let dialogOverlay = document.getElementById('dialog-overlay');
+let confirmDeleteButton = document.getElementById('confirm-delete-button');
+let cancelDeleteButton = document.getElementById('cancel-delete-button');
+let deleteTaskID = document.getElementById('delete-task-id');
+let rowToDelete = null;
+
+function showConfirmationDialog(){
+  confirmationDialog.style.display = 'block';
+  dialogOverlay.style.display = 'block';
+
+}
+
+function hideConfirmationDialog(){
+  confirmationDialog.style.display = 'none';
+  dialogOverlay.style.display = 'none';
+}
+
+function deleteTask(event){
+  
+  rowToDelete = event.target.closest('tr');
+
+  if(rowToDelete){
+    showConfirmationDialog();
+    deleteTaskID.textContent = rowToDelete.querySelector('td:first-child').textContent;
+  }
+}
+
+confirmationDialog.addEventListener('click', (event)=> {
+  let clickedButton = event.target;
+
+  if(clickedButton.getAttribute('data-action')){
+
+    let action = clickedButton.dataset.action;
+
+    if (action === 'confirm') {
+      rowToDelete.remove();
+
+    } else if (action === 'cancle') {
+      rowToDelete = null;
+    }
+
+    hideConfirmationDialog();
+  }
+});
 
 let searchBar = document.getElementById('search-bar');
 
@@ -104,7 +169,7 @@ searchBar.addEventListener('input', (event) => {
       row.style.display = 'none';
 
     }
-    
+
   });
 });
 

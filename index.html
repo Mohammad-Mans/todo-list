@@ -24,16 +24,37 @@
 
       <section class="add-task">
         <form>
-          <input type="text" id="task-text" class="text-input" placeholder="Add new task">
+          <input
+            type="text"
+            id="task-text"
+            class="text-input"
+            placeholder="Add new task"
+          />
           <button id="add-task-button">Add</button>
         </form>
       </section>
 
       <section class="search-bar">
-        <input type="text" id="search-bar" class="text-input" placeholder="Search tasks..." />
+        <input
+          type="text"
+          id="search-bar"
+          class="text-input"
+          placeholder="Search tasks..."
+        />
       </section>
     </header>
     <main>
+      <section id="confirmation-dialog" class="confirmation-dialog">
+        <p>
+          Are you sure you want to delete task
+          <span id="delete-task-id"></span> ?
+        </p>
+        <button id="confirm-delete" data-action="confirm">Yes</button>
+        <button id="cancel-delete" data-action="cancle">No</button>
+      </section>
+
+      <section id="dialog-overlay" class="dialog-overlay"></section>
+
       <section class="todo-table">
         <table>
           <thead>
@@ -46,9 +67,7 @@
             </tr>
           </thead>
 
-          <tbody id="table-body">
-            
-          </tbody>
+          <tbody id="table-body"></tbody>
         </table>
       </section>
     </main>

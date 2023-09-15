@@ -9,6 +9,7 @@
 
 :root{
     --main-purple-color: #77448b;
+    --secondery-purple-color: #2B124c;
     --main-beige-color: #fbe4d8;
     --secondery-beige-color: #dfb6b2;
     --white-color: #fff;
@@ -127,6 +128,52 @@ body main table .edit-button:hover,.delete-button:hover,.done-button:hover {
     transition: 0.5s;
     background-color: var(--secondery-beige-color);
 }
+
+.confirmation-dialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--white-color);
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+  }
+  
+.confirmation-dialog p {    
+    margin: 0;
+    margin-bottom: 20px;
+}
+  
+.confirmation-dialog button {
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: var(--main-purple-color);
+}
+
+.confirmation-dialog button:hover {
+    margin-right: 10px;
+    transition: 0.5s;
+    background-color: var(--secondery-purple-color);
+}
+  
+.confirmation-dialog button:last-child {
+    margin-right: 0;
+}
+
+.dialog-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(2px); 
+    z-index: 9998; 
+}
+  
 
 @media(max-width:650px){
     body main table th,td{
