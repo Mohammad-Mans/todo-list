@@ -115,8 +115,12 @@ body main tr:not(tr:last-child){
 }
 
 body main table td{
-    padding: 20px;
+    padding: 20px 0;
     text-align: center;
+}
+
+body main table td:nth-child(4),td:nth-child(5),td:nth-child(6){
+    width: 70px;
 }
 
 body main table .edit-button,.delete-button,.toggle-status-button{
@@ -209,6 +213,10 @@ body footer{
     body{
         padding-left: 0;
         padding-right: 0;
+    }
+
+    body main table td:nth-child(4),td:nth-child(5),td:nth-child(6){
+        width: 40px;
     }
 }
 
