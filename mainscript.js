@@ -6,32 +6,79 @@ function updateTaskCount() {
   document.getElementById('task-count').textContent = taskCount;
 }
 
-fetch('https://dummyjson.com/todos')
 
-  .then(response => {
-    if (!response.ok) {
+function saveTasksToLocalStorage() {
+  const tasks = [];
+  const rows = document.querySelectorAll('tbody tr');
+
+  rows.forEach((row) => {
+    const id = row.querySelector('td:nth-child(1)').textContent;
+    const task = row.querySelector('td:nth-child(2)').textContent;
+    const userId = row.querySelector('td:nth-child(3)').textContent;
+    const statusIcon = row.querySelector('td:nth-child(7) i');
+    const status = statusIcon.classList.contains('fa-solid', 'fa-circle-check', 'fa-lg');
+
+    tasks.push({ id, task, userId, status });
+  });
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+function loadTasksFromLocalStorage() {
+  const savedTasks = localStorage.getItem('tasks');
+  const tasksFetched = localStorage.getItem('tasksFetched');
+
+  if (tasksFetched && savedTasks) {
+    const tasks = JSON.parse(savedTasks);
+
+    tasks.forEach((task) => {
+      idCount = Math.max(idCount, parseInt(task.id));
+      addTask(task.id, task.task, task.userId, task.status);
+    });
+
+    updateTaskCount();
+
+  } else {
+
+    fetch('https://dummyjson.com/todos')
+
+    .then(response => {
+      if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.status}`);
     }
 
-  return response.json();
+    return response.json();
 
-  }).then(data => {
-    const todos = data.todos;
+    }).then(data => {
+      const todos = data.todos;
 
-    for (let todoData of todos) {
-      idCount++;
-      let id = todoData.id;
-      let task = todoData.todo;
-      let status = todoData.completed;
-      let userId = todoData.userId;
+      for (let todoData of todos) {
+        idCount++;
+        let id = todoData.id;
+        let task = todoData.todo;
+        let status = todoData.completed;
+        let userId = todoData.userId;
 
-      addTask(id,task,userId,status);
-    }
+        addTask(id,task,userId,status);
+      }
 
-  }).catch(error => {
-    console.error('There was a problem with the fetch operation:', error);
+      localStorage.setItem('tasksFetched', 'true');
+
+    }).catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
   }
-);
+}
+
+window.addEventListener('load', () => {
+  loadTasksFromLocalStorage();
+});
+
+document.addEventListener('click', () => {
+  saveTasksToLocalStorage();
+});
+
+//----Add tasks
 
 let addButton = document.getElementById('add-task-button');
 let task = document.getElementById('task-text');
