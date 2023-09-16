@@ -195,6 +195,20 @@ body main table .edit-input {
     z-index: 9998; 
 }
 
+.toast {
+    position: fixed;
+    top: -100px;
+    right: 20px;
+    background-color: var(--main-beige-color);
+    color: var(--main-purple-color);
+    padding: 15px;
+    border-radius: 5px;
+    border:1px solid var(--secondery-beige-color);
+    display: none;
+    z-index: 9999;
+    transition: top 0.5s ease-in-out;
+}  
+
 body footer{
     width: 100%;
     margin-top: 40px;

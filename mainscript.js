@@ -9,14 +9,14 @@ function updateTaskCount() {
 
 function saveTasksToLocalStorage() {
   const tasks = [];
-  const rows = document.querySelectorAll('tbody tr');
+  let rows = document.querySelectorAll('tbody tr');
 
   rows.forEach((row) => {
-    const id = row.querySelector('td:nth-child(1)').textContent;
-    const task = row.querySelector('td:nth-child(2)').textContent;
-    const userId = row.querySelector('td:nth-child(3)').textContent;
-    const statusIcon = row.querySelector('td:nth-child(7) i');
-    const status = statusIcon.classList.contains('fa-solid', 'fa-circle-check', 'fa-lg');
+    let id = row.querySelector('td:nth-child(1)').textContent;
+    let task = row.querySelector('td:nth-child(2)').textContent;
+    let userId = row.querySelector('td:nth-child(3)').textContent;
+    let statusIcon = row.querySelector('td:nth-child(7) i');
+    let status = statusIcon.classList.contains('fa-circle-check');
 
     tasks.push({ id, task, userId, status });
   });
@@ -25,11 +25,11 @@ function saveTasksToLocalStorage() {
 }
 
 function loadTasksFromLocalStorage() {
-  const savedTasks = localStorage.getItem('tasks');
-  const tasksFetched = localStorage.getItem('tasksFetched');
+  let savedTasks = localStorage.getItem('tasks');
+  let tasksFetched = localStorage.getItem('tasksFetched');
 
   if (tasksFetched && savedTasks) {
-    const tasks = JSON.parse(savedTasks);
+    let tasks = JSON.parse(savedTasks);
 
     tasks.forEach((task) => {
       idCount = Math.max(idCount, parseInt(task.id));
@@ -93,6 +93,7 @@ addButton.addEventListener('click', (event) =>{
     idCount++;
     let userId = Math.floor(Math.random() * 100) + 1;
     addTask(idCount,newTask,userId,'false');
+    showToast('Task added successfully!');
 
   }else{
     task.classList.add('shake');
@@ -104,6 +105,24 @@ addButton.addEventListener('click', (event) =>{
   task.value = '';
 
 } );
+
+function showToast(message) {
+  let toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.display = 'block';
+
+  setTimeout(() => {
+    toast.style.top = '20px';
+  }, 10);
+
+  setTimeout(() => {
+    toast.style.top = '-100px';
+
+    setTimeout(() => {
+      toast.style.display = 'none';
+    }, 500); 
+  }, 3000);
+}
 
 function addTask(id,task,userId,status){
 
