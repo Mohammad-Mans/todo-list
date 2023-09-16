@@ -1,4 +1,10 @@
 let idCount = 0;
+let taskCount = 0;
+
+function updateTaskCount() {
+  taskCount = document.querySelectorAll('tbody tr').length;
+  document.getElementById('task-count').textContent = taskCount;
+}
 
 fetch('https://dummyjson.com/todos')
 
@@ -98,6 +104,7 @@ function addTask(id,task,userId,status){
     row.appendChild(statusCell);
 
     tableBody.appendChild(row);
+    updateTaskCount();
 }
 
 tableBody.addEventListener('click', (event) => {
@@ -153,6 +160,7 @@ confirmationDialog.addEventListener('click', (event)=> {
 
     if (action === 'confirm') {
       rowToDelete.remove();
+      updateTaskCount();
 
     } else if (action === 'cancle') {
       rowToDelete = null;
