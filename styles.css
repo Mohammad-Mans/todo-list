@@ -138,6 +138,13 @@ body main table .fa-hourglass-half{
     color: var(--red-color);
 }
 
+body main table .edit-input {
+    outline: none;
+    border: none;
+    font-size: inherit; 
+    width:initial;
+}
+
 .confirmation-dialog {
     display: none;
     position: fixed;

@@ -114,7 +114,7 @@ tableBody.addEventListener('click', (event) => {
     let action = clickedButton.dataset.action;
 
     if (action === 'edit') {
-      alert('edit');
+      editTask(event);
     } else if (action === 'delete') {
       deleteTask(event);
     } else if (action === 'toggle-status') {
@@ -122,6 +122,45 @@ tableBody.addEventListener('click', (event) => {
     }
   }
 });
+
+//----edit
+
+function editTask (event){
+  let rowToEdit = event.target.closest('tr');
+  let taskCell = rowToEdit.querySelector('td:nth-child(2)');
+  let taskText = taskCell.textContent;
+
+  let editInput = document.createElement('input');
+  editInput.classList.add('edit-input');
+
+  editInput.type = 'text';
+  editInput.value = taskText;
+
+  taskCell.textContent = '';
+  taskCell.appendChild(editInput);
+
+  let textCellWidth = getComputedStyle(taskCell).width;
+  editInput.style.width = textCellWidth;
+
+  editInput.focus();
+  
+  editInput.addEventListener('blur', () => {
+    saveEditedTask(taskCell, editInput);
+  });
+
+  editInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      saveEditedTask(taskCell, editInput);
+    }
+  });
+
+}
+
+function saveEditedTask(taskCell, editInput) {
+  let editedTask = editInput.value;
+  taskCell.textContent = editedTask;
+  editInput.remove();
+}
 
 //----delete
 
