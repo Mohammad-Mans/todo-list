@@ -124,50 +124,43 @@ function showToast(message) {
   }, 3000);
 }
 
+function createTableCell(text) {
+  let cell = document.createElement('td');
+  cell.textContent = text;
+  return cell;
+}
+
 function addTask(id,task,userId,status){
 
     let row = document.createElement('tr');
-    let idCell = document.createElement('td');
-    let taskCell = document.createElement('td');
-    let userIdCell = document.createElement('td');
-    let editButton = document.createElement('td');
-    let deleteButton = document.createElement('td');
-    let ToggleStatusButton = document.createElement('td');
-    let statusCell = document.createElement('td');
 
-    idCell.textContent = id;
-    taskCell.textContent = task;
-    userIdCell.textContent = userId;
-    editButton.textContent = 'Edit';
-    deleteButton.textContent = 'Delete';
-
-    if(status === true){
-      let completedIcon = document.createElement('i');
-      completedIcon.classList.add('fa-solid','fa-circle-check','fa-lg');
-      statusCell.appendChild(completedIcon);
-      ToggleStatusButton.textContent = 'Revert';
-    }else{
-      let hourGlassIcon = document.createElement('i');
-      hourGlassIcon.classList.add('fa-regular','fa-hourglass-half','fa-lg');
-      statusCell.appendChild(hourGlassIcon);
-      ToggleStatusButton.textContent = 'Done';
-    }
+    let idCell = createTableCell(id);
+    let taskCell = createTableCell(task);
+    let userIdCell = createTableCell(userId);
+    let editButton = createTableCell('Edit');
+    let deleteButton = createTableCell('Delete');
+    let toggleStatusButton = createTableCell(status ? 'Revert' : 'Done');
 
     editButton.classList.add('edit-button');
     deleteButton.classList.add('delete-button');
-    ToggleStatusButton.classList.add('toggle-status-button');
+    toggleStatusButton.classList.add('toggle-status-button');
 
     editButton.setAttribute('data-action', 'edit');
     deleteButton.setAttribute('data-action', 'delete');
-    ToggleStatusButton.setAttribute('data-action', 'toggle-status');
+    toggleStatusButton.setAttribute('data-action', 'toggle-status');
 
-    row.appendChild(idCell);
-    row.appendChild(taskCell);
-    row.appendChild(userIdCell);
-    row.appendChild(editButton);
-    row.appendChild(deleteButton);
-    row.appendChild(ToggleStatusButton);
-    row.appendChild(statusCell);
+    let statusCell = document.createElement('td');
+    let statusIcon = document.createElement('i');
+    
+    statusIcon.classList.add(
+      status ? 'fa-solid' : 'fa-regular',
+      status ? 'fa-circle-check' : 'fa-hourglass-half',
+      'fa-lg'
+    );
+
+    statusCell.appendChild(statusIcon);
+
+    row.append(idCell, taskCell, userIdCell, editButton, deleteButton, toggleStatusButton, statusCell);
 
     tableBody.appendChild(row);
     updateTaskCount();
