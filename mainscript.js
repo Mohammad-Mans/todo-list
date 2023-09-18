@@ -92,7 +92,7 @@ addButton.addEventListener('click', (event) =>{
   if(newTask.trim() !== ''){
     idCount++;
     let userId = Math.floor(Math.random() * 100) + 1;
-    addTask(idCount,newTask,userId,'false');
+    addTask(idCount,newTask,userId,false);
     showToast('Task added successfully!');
 
   }else{
